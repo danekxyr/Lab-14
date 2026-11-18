@@ -1,0 +1,26 @@
+/*
+ * Студент: Пылинский Даниил Максимович
+ * Группа: ПИ 1-1
+ * Лабораторная работа № 14
+ * Назначение: Безопасный ввод строки через fgets, удаление перевода строки и подсчёт длины в байтах
+ */
+
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    char text[32];
+    if (fgets(text, sizeof text, stdin) == NULL) {
+        puts("Input error");
+        return 1;
+    }
+    size_t pos = strcspn(text, "\n");
+    if (text[pos] == '\n') text[pos] = '\0';
+    if (strlen(text) > 30) {
+        puts("Too long");
+        return 1;
+    }
+    printf("Text: [%s]\n", text);
+    printf("Bytes: %zu\n", strlen(text));
+    return 0;
+}
